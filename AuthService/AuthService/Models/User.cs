@@ -9,6 +9,11 @@ namespace AuthService.Models
 {
     public class User
     {
+        public User()
+        {
+            Roles = new List<ObjectId>();
+        }
+
         public ObjectId Id { get; set; }
 
         [BsonElement("Login")]
@@ -16,5 +21,8 @@ namespace AuthService.Models
 
         [BsonElement("PasswordHash")]
         public string PasswordHash { get; set; }
+
+        [BsonElement("Roles")]
+        public ICollection<ObjectId> Roles { get; set; }
     }
 }
