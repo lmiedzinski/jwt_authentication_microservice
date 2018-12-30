@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AuthService.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthService.Controllers
@@ -10,10 +11,18 @@ namespace AuthService.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IRoleService _roleService;
+
+        public ValuesController(IRoleService roleService)
+        {
+            _roleService = roleService;
+        }
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<string>>> Get()
         {
+            var roles = await _roleService.Get();
+            var i = roles.Count;
             return new string[] { "value1", "value2" };
         }
 

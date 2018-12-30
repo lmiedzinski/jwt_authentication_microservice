@@ -1,4 +1,5 @@
-﻿using AuthService.Models;
+﻿using AuthService.DbConnectors;
+using AuthService.Models;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -9,15 +10,13 @@ using System.Threading.Tasks;
 
 namespace AuthService.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IMongoCollection<User> _users;
 
-        public UserService(IConfiguration config)
+        public UserService(MongoDbConnector connector)
         {
-            var client = new MongoClient(config.GetConnectionString("AuthDb"));
-            var database = client.GetDatabase("AuthDb");
-            _users = database.GetCollection<User>("Users");
+            _users = connector.Database.GetCollection<User>("Users");
         }
 
         public async Task<List<User>> Get()

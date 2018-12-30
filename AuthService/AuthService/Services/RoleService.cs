@@ -1,23 +1,19 @@
-﻿using AuthService.Models;
-using Microsoft.Extensions.Configuration;
+﻿using AuthService.DbConnectors;
+using AuthService.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AuthService.Services
 {
-    public class RoleService
+    public class RoleService : IRoleService
     {
         private readonly IMongoCollection<Role> _roles;
 
-        public RoleService(IConfiguration config)
+        public RoleService(MongoDbConnector connector)
         {
-            var client = new MongoClient(config.GetConnectionString("AuthDb"));
-            var database = client.GetDatabase("AuthDb");
-            _roles = database.GetCollection<Role>("Roles");
+            _roles = connector.Database.GetCollection<Role>("Roles");
         }
 
         public async Task<List<Role>> Get()
