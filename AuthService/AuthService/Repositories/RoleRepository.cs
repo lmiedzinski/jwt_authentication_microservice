@@ -5,13 +5,14 @@ using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AuthService.Services
+namespace AuthService.Repositories
 {
-    public class RoleService : IRoleService
+    public class RoleRepository : IRoleRepository
     {
+
         private readonly IMongoCollection<Role> _roles;
 
-        public RoleService(MongoDbConnector connector)
+        public RoleRepository(MongoDbConnector connector)
         {
             _roles = connector.Database.GetCollection<Role>("Roles");
         }
@@ -25,6 +26,11 @@ namespace AuthService.Services
         {
             var docId = new ObjectId(id);
             return await _roles.Find(role => role.Id == docId).ToListAsync();
+        }
+
+        public async Task<List<Role>> GetByName(string roleName)
+        {
+            return await _roles.Find(role => role.RoleName == roleName).ToListAsync();
         }
 
         public async Task<Role> Create(Role role)

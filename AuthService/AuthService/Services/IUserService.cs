@@ -1,8 +1,4 @@
-﻿using AuthService.DbConnectors;
-using AuthService.Models;
-using Microsoft.Extensions.Configuration;
-using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using AuthService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +8,8 @@ namespace AuthService.Services
 {
     public interface IUserService
     {
-        Task<List<User>> Get();
-
-        Task<List<User>> Get(string id);
-
-        Task<User> Create(User user);
-
-        Task Update(string id, User userIn);
-
-        Task Remove(User userIn);
-
-        Task Remove(string id);
+        Task<User> RegisterNewUser(string login, string password);
+        Task<User> RegisterNewAdmin(string login, string password);
+        Task<string> LoginUser(string login, string password);
     }
 }

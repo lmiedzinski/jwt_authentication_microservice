@@ -5,14 +5,16 @@ using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AuthService.Services
+namespace AuthService.Repositories
 {
-    public interface IRoleService
+    public interface IRoleRepository
     {
 
         Task<List<Role>> Get();
 
         Task<List<Role>> Get(string id);
+
+        Task<List<Role>> GetByName(string roleName);
 
         Task<Role> Create(Role role);
 

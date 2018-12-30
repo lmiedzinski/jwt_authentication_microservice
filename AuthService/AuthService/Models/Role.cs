@@ -9,6 +9,9 @@ namespace AuthService.Models
 {
     public class Role
     {
+        public static readonly string ADMIN_ROLE_NAME = "admin";
+        public static readonly string USER_ROLE_NAME = "user";
+
         public ObjectId Id { get; set; }
 
         [BsonElement("RoleName")]

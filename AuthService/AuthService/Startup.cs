@@ -1,4 +1,5 @@
 ﻿using AuthService.DbConnectors;
+using AuthService.Repositories;
 using AuthService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,8 +23,9 @@ namespace AuthService
         {
             services.AddSingleton(Configuration.GetSection("MongoDbConfiguration").Get<MongoDbConfiguration>());
             services.AddScoped<MongoDbConnector>();
-            services.AddScoped<IUserService,UserService>();
-            services.AddScoped<IRoleService,RoleService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IUserService, UserService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
