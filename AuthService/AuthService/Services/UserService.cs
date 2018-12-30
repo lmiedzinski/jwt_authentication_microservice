@@ -21,7 +21,11 @@ namespace AuthService.Services
 
         public async Task<string> LoginUser(string login, string password)
         {
-            throw new NotImplementedException();
+            var userToLogin = (await _userRepository.GetByLogin(login)).FirstOrDefault();
+            if (userToLogin == null) return null;
+            if (!Crypto.VerifyHashedPassword(userToLogin.PasswordHash, password)) return null;
+            // later it should return the token
+            return userToLogin.Login;
         }
 
         public async Task<User> RegisterNewAdmin(string login, string password)

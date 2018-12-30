@@ -23,6 +23,7 @@ namespace AuthService.Controllers
         public async Task<ActionResult<IEnumerable<string>>> Get()
         {
             //var createdUser = await _userService.RegisterNewAdmin("admin@auth-service.com", "qwerty");
+            string token = await _userService.LoginUser("admin@auth-service.com", "qwerty");
             return new string[] { "value1", "value2" };
         }
 
